@@ -77,20 +77,26 @@ export function LoginForm({
                 />
               </div>
               <div className='grid gap-3'>
-                <div className='flex items-center'>
-                  <Label htmlFor='password'>
-                    {TEXTOS_PAGINA_LOGIN.senhaLabel}
-                  </Label>
+                  <div className='flex items-center'>
+                    <Label htmlFor='password'>
+                      {TEXTOS_PAGINA_LOGIN.senhaLabel}
+                    </Label>
+                    <a
+                      href='/login/forgot-password'
+                      className='ml-auto inline-block text-sm underline'
+                    >
+                      {TEXTOS_PAGINA_LOGIN.esqueciSenha}
+                    </a>
+                  </div>
+                  <Input
+                    id='password'
+                    type='password'
+                    required
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    placeholder='666666'
+                  />
                 </div>
-                <Input
-                  id='password'
-                  type='password'
-                  required
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  placeholder='666666'
-                />
-              </div>
               {error && <p className='text-sm text-red-500'>{error}</p>}
               <div className='flex flex-col gap-3'>
                 <Button type='submit' className='w-full'>

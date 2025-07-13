@@ -9,8 +9,14 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import * as z from 'zod';
-import { InfoIcon, UserPlus } from 'lucide-react';
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
+import { UserPlus } from 'lucide-react';
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle
+} from '@/components/ui/card';
 
 const formSchema = z.object({
   firstName: z.string().min(1, 'Nome é obrigatório.').min(3, 'Nome deve ter no mínimo 3 caracteres.'),
@@ -50,21 +56,51 @@ export function RegisterForm() {
   }
 
   return (
-    <div className="space-y-4">
-      <div className="text-left mb-4">
-        <h1 className="text-2xl font-bold">Cadastro de Nova Conta</h1>
-      </div>
-      <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+    <Card>
+      <CardHeader>
+        <CardTitle>Cadastro de Nova Conta</CardTitle>
+        <CardDescription>Preencha os campos abaixo para criar sua conta.</CardDescription>
+      </CardHeader>
+      <CardContent>
+        <Form {...form}>
+          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <FormField
+                control={form.control}
+                name="firstName"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel required>Nome</FormLabel>
+                    <FormControl>
+                      <Input placeholder="Seu primeiro nome" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="lastName"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel required>Sobrenome</FormLabel>
+                    <FormControl>
+                      <Input placeholder="Seu sobrenome" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <FormField
               control={form.control}
-              name="firstName"
+              name="cpf"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel required>Nome</FormLabel>
+                  <FormLabel required>CPF</FormLabel>
                   <FormControl>
-                    <Input placeholder="Seu primeiro nome" {...field} />
+                    <Input placeholder="Somente números" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -72,92 +108,28 @@ export function RegisterForm() {
             />
             <FormField
               control={form.control}
-              name="lastName"
+              name="phone"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel required>Sobrenome</FormLabel>
+                  <FormLabel required>Telefone</FormLabel>
                   <FormControl>
-                    <Input placeholder="Seu sobrenome" {...field} />
+                    <Input placeholder="Seu telefone" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
             />
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <FormField
-            control={form.control}
-            name="cpf"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel required>CPF</FormLabel>
-                <FormControl>
-                  <Input placeholder="Somente números" {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="phone"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel required>Telefone</FormLabel>
-                <FormControl>
-                  <Input placeholder="Seu telefone" {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
+              
+            </div>
             
-          </div>
-          
-          <FormField
-            control={form.control}
-            name="email"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel required>E-mail</FormLabel>
-                <FormControl>
-                  <Input placeholder="Seu e-mail corporativo ou pessoal" {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="position"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel required>Cargo</FormLabel>
-                <Select onValueChange={field.onChange} defaultValue={field.value}>
-                  <FormControl>
-                    <SelectTrigger className="w-full">
-                      <SelectValue placeholder="Selecione um cargo" />
-                    </SelectTrigger>
-                  </FormControl>
-                  <SelectContent>
-                    <SelectItem value="manager">Gerente</SelectItem>
-                    <SelectItem value="employee">Funcionário</SelectItem>
-                    <SelectItem value="admin">Administrador</SelectItem>
-                  </SelectContent>
-                </Select>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <FormField
               control={form.control}
-              name="password"
+              name="email"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel required>Senha</FormLabel>
+                  <FormLabel required>E-mail</FormLabel>
                   <FormControl>
-                    <Input type="password" placeholder="Crie uma senha segura" {...field} />
+                    <Input placeholder="Seu e-mail corporativo ou pessoal" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -165,44 +137,87 @@ export function RegisterForm() {
             />
             <FormField
               control={form.control}
-              name="confirmPassword"
+              name="position"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel required>Confirmar senha</FormLabel>
-                  <FormControl>
-                    <Input type="password" placeholder="Repita sua senha" {...field} />
-                  </FormControl>
+                  <FormLabel required>Cargo</FormLabel>
+                  <Select onValueChange={field.onChange} defaultValue={field.value}>
+                    <FormControl>
+                      <SelectTrigger className="w-full">
+                        <SelectValue placeholder="Selecione um cargo" />
+                      </SelectTrigger>
+                    </FormControl>
+                    <SelectContent>
+                      <SelectItem value="manager">Gerente</SelectItem>
+                      <SelectItem value="employee">Funcionário</SelectItem>
+                      <SelectItem value="admin">Administrador</SelectItem>
+                    </SelectContent>
+                  </Select>
                   <FormMessage />
                 </FormItem>
               )}
             />
-          </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <FormField
+                control={form.control}
+                name="password"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel required>Senha</FormLabel>
+                    <FormControl>
+                      <Input type="password" placeholder="Crie uma senha segura" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="confirmPassword"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel required>Confirmar senha</FormLabel>
+                    <FormControl>
+                      <Input type="password" placeholder="Repita sua senha" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </div>
 
-          <FormField
-            control={form.control}
-            name="acceptTerms"
-            render={({ field }) => (
-              <FormItem className="flex flex-row items-start space-x-3 space-y-0 rounded-md border p-2">
-                <FormControl>
-                  <Checkbox
-                    checked={field.value}
-                    onCheckedChange={field.onChange}
-                  />
-                </FormControl>
-                <div className="space-y-1 leading-none">
-                  <FormLabel>
-                    Eu concordo com os termos e condições
-                  </FormLabel>
-                </div>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <Button type="submit" className="w-full">
-            <UserPlus className="mr-2 h-4 w-4" /> Criar conta
-          </Button>
-        </form>
-      </Form>
-    </div>
+            <FormField
+              control={form.control}
+              name="acceptTerms"
+              render={({ field }) => (
+                <FormItem className="flex flex-row items-start space-x-3 space-y-0 rounded-md border p-2">
+                  <FormControl>
+                    <Checkbox
+                      checked={field.value}
+                      onCheckedChange={field.onChange}
+                    />
+                  </FormControl>
+                  <div className="space-y-1 leading-none">
+                    <FormLabel>
+                      Eu concordo com os termos e condições
+                    </FormLabel>
+                  </div>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <Button type="submit" className="w-full">
+              <UserPlus className="mr-2 h-4 w-4" /> Criar conta
+            </Button>
+          </form>
+        </Form>
+        <div className='mt-4 text-center text-sm'>
+          Já tem uma conta?{' '}
+          <a href='/login' className='underline underline-offset-4'>
+            Entrar
+          </a>
+        </div>
+      </CardContent>
+    </Card>
   );
 }
