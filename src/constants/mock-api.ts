@@ -181,7 +181,7 @@ export const fakeDonors = {
         mobile: faker.phone.number(),
         prenatalCare: faker.lorem.sentence(),
         doctorName: faker.person.fullName(),
-        gestationalAge: `${faker.number.int({ min: 37, max: 42 })} weeks`,
+        gestationalAge: `${faker.number.int({ min: 37, max: 42 })} semanas`,
         birthType: faker.helpers.arrayElement(['normal', 'cesarean']),
         birthDate: birthDate.toISOString(),
         complications: faker.helpers.maybe(() => faker.lorem.sentence(), { probability: 0.3 }),

@@ -56,24 +56,19 @@ export const navItems: NavItem[] = [
     shortcut: ['d', 'd'],
     items: [] // Empty array as there are no child items for Dashboard
   },
-  {
-    title: 'Product',
-    url: '/dashboard/product',
-    icon: 'product',
-    shortcut: ['p', 'p'],
-    isActive: false,
-    items: [] // No child items
-  },
-  {
-    title: 'Perfil',
-    url: '/dashboard/profile',
-    icon: 'userPen',
-    shortcut: ['m', 'm']
-  },
+  // {
+  //   title: 'Product',
+  //   url: '/dashboard/product',
+  //   icon: 'product',
+  //   shortcut: ['p', 'p'],
+  //   isActive: false,
+  //   items: [] // No child items
+  // },
+  
   {
     title: 'Doadora',
     url: '/dashboard/donor',
-    icon: 'employee',
+    icon: 'heart',
     shortcut: ['d', 'd'],
     isActive: false,
     items: [
@@ -81,38 +76,45 @@ export const navItems: NavItem[] = [
         title: 'Cadastro',
         shortcut: ['c', 'c'],
         url: '/dashboard/donor/new',
-        icon: 'employee'
+        icon: 'heart'
       },
       {
         title: 'Listagem',
         shortcut: ['l', 'l'],
         url: '/dashboard/donor',
-        icon: 'employee'
+        icon: 'heart'
       }
     ]
   },
+
   {
-    title: 'Account',
-    url: '#',
-    icon: 'billing',
-    isActive: true,
-    items: [
-      {
-        title: 'Login',
-        shortcut: ['l', 'l'],
-        url: '/',
-        icon: 'login'
-      }
-    ]
+    title: 'Perfil',
+    url: '/dashboard/profile',
+    icon: 'userPen',
+    shortcut: ['m', 'm']
   },
-  {
-    title: 'Kanban',
-    url: '/dashboard/kanban',
-    icon: 'kanban',
-    shortcut: ['k', 'k'],
-    isActive: false,
-    items: [] // No child items
-  }
+  // {
+  //   title: 'Account',
+  //   url: '#',
+  //   icon: 'billing',
+  //   isActive: true,
+  //   items: [
+  //     {
+  //       title: 'Login',
+  //       shortcut: ['l', 'l'],
+  //       url: '/',
+  //       icon: 'login'
+  //     }
+  //   ]
+  // },
+  // {
+  //   title: 'Kanban',
+  //   url: '/dashboard/kanban',
+  //   icon: 'kanban',
+  //   shortcut: ['k', 'k'],
+  //   isActive: false,
+  //   items: [] // No child items
+  // }
 ];
 
 export interface SaleUser {

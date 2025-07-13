@@ -33,7 +33,7 @@ import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { useSearchParams } from 'next/navigation';
 
 const personalSchema = z.object({
-  registrationDate: z.date({ required_error: 'Data de cadastro é obrigatória.' }),
+  registrationDate: z.date().optional(),
   fullName: z.string().min(3, 'Nome completo é obrigatório (mínimo 3 caracteres).'),
   dateOfBirth: z.date({ required_error: 'Data de nascimento é obrigatória.' }),
   profession: z.string().min(3, 'Profissão é obrigatória (mínimo 3 caracteres).'),
@@ -257,9 +257,9 @@ export default function DonorForm({
               </TabsList>
               <TabsContent value="personal">
                 <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-                  <FormField control={form.control} name="registrationDate" render={({ field }) => (<FormItem><FormLabel required>Data de Cadastro</FormLabel><Popover><PopoverTrigger asChild><FormControl><Button variant={'outline'} className={cn('w-full pl-3 text-left font-normal', !field.value && 'text-muted-foreground')}>{field.value ? format(field.value, 'PPP') : <span>Escolha uma data</span>}<CalendarIcon className="ml-auto h-4 w-4 opacity-50" /></Button></FormControl></PopoverTrigger><PopoverContent className="w-auto p-0" align="start"><Calendar mode="single" selected={field.value} onSelect={field.onChange} disabled={(date) => date > new Date() || date < new Date('1900-01-01')} initialFocus /></PopoverContent></Popover><FormMessage /></FormItem>)} />
+                  {/* <FormField control={form.control} name="registrationDate" render={({ field }) => (<FormItem><FormLabel required>Data de Cadastro</FormLabel><Popover><PopoverTrigger asChild><FormControl><Button variant={'outline'} className={cn('w-full pl-3 text-left font-normal', !field.value && 'text-muted-foreground')}>{field.value ? format(field.value, 'PPP') : <span>Escolha uma data</span>}<CalendarIcon className="ml-auto h-4 w-4 opacity-50" /></Button></FormControl></PopoverTrigger><PopoverContent className="w-auto p-0" align="start"><Calendar mode="single" selected={field.value} onSelect={field.onChange} disabled={(date) => date > new Date() || date < new Date('1900-01-01')} initialFocus /></PopoverContent></Popover><FormMessage /></FormItem>)} /> */}
                   <FormField control={form.control} name="fullName" render={({ field }) => (<FormItem><FormLabel required>Nome Completo</FormLabel><FormControl><Input {...field} /></FormControl><FormMessage /></FormItem>)} />
-                  <FormField control={form.control} name="dateOfBirth" render={({ field }) => (<FormItem><FormLabel required>Data de Nascimento</FormLabel><Popover><PopoverTrigger asChild><FormControl><Button variant={'outline'} className={cn('w-full pl-3 text-left font-normal', !field.value && 'text-muted-foreground')}>{field.value ? format(field.value, 'PPP') : <span>Escolha uma data</span>}<CalendarIcon className="ml-auto h-4 w-4 opacity-50" /></Button></FormControl></PopoverTrigger><PopoverContent className="w-auto p-0" align="start"><Calendar mode="single" selected={field.value} onSelect={field.onChange} disabled={(date) => date > new Date() || date < new Date('1900-01-01')} initialFocus /></PopoverContent></Popover><FormMessage /></FormItem>)} />
+                  <FormField control={form.control} name="dateOfBirth" render={({ field }) => (<FormItem><FormLabel required>Data de Nascimento</FormLabel><Popover><PopoverTrigger asChild><FormControl><Button variant={'outline'} className={cn('w-full pl-3 text-left font-normal', !field.value && 'text-muted-foreground')}>{field.value ? format(field.value, 'dd/MM/yyyy')  : <span>Escolha uma data</span>}<CalendarIcon className="ml-auto h-4 w-4 opacity-50" /></Button></FormControl></PopoverTrigger><PopoverContent className="w-auto p-0" align="start"><Calendar mode="single" selected={field.value} onSelect={field.onChange} disabled={(date) => date > new Date() || date < new Date('1900-01-01')} initialFocus /></PopoverContent></Popover><FormMessage /></FormItem>)} />
                   <FormField control={form.control} name="profession" render={({ field }) => (<FormItem><FormLabel required>Profissão</FormLabel><FormControl><Input {...field} /></FormControl><FormMessage /></FormItem>)} />
                   <FormField control={form.control} name="address" render={({ field }) => (<FormItem><FormLabel>Endereço Completo</FormLabel><FormControl><Input {...field} /></FormControl><FormMessage /></FormItem>)} />
                   <FormField control={form.control} name="city" render={({ field }) => (<FormItem><FormLabel>Cidade</FormLabel><FormControl><Input {...field} /></FormControl><FormMessage /></FormItem>)} />
@@ -289,7 +289,7 @@ export default function DonorForm({
                 </div>
               </TabsContent>
               <TabsContent value="lifestyle">
-                                <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+                <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
                   <FormField control={form.control} name="tattoo" render={({ field }) => (
                     <FormItem>
                       <FormLabel required>Tatuagem</FormLabel>
