@@ -100,7 +100,7 @@ export function LoginForm({
             </div>
             <div className='mt-4 text-center text-sm'>
               {TEXTOS_PAGINA_LOGIN.semConta}{' '}
-              <a href='/auth/sign-up' className='underline underline-offset-4'>
+              <a href='/login/register' className='underline underline-offset-4'>
                 {TEXTOS_PAGINA_LOGIN.criarConta}
               </a>
             </div>
