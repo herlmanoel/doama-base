@@ -11,7 +11,7 @@ export default function ProfileViewPage() {
       {session?.user ? (
         <div className='mt-4'>
           <p>
-            <strong>Name:</strong> {session.user.name}
+            <strong>Name:</strong> {session.user.fullName}
           </p>
           <p>
             <strong>Email:</strong> {session.user.email}
