@@ -34,7 +34,7 @@ const DEFAULT_THEMES = [
 
 const SCALED_THEMES = [
   {
-    name: 'Default',
+    name: 'Padrão',
     value: 'default-scaled'
   },
   {
@@ -64,7 +64,7 @@ export function ThemeSelector() {
           className='justify-start *:data-[slot=select-value]:w-12'
         >
           <span className='text-muted-foreground hidden sm:block'>
-            Select a theme:
+            Selelecione o tema
           </span>
           <span className='text-muted-foreground block sm:hidden'>Theme</span>
           <SelectValue placeholder='Select a theme' />
