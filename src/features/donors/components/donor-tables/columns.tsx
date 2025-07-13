@@ -38,7 +38,7 @@ export const columns: ColumnDef<Donor>[] = [
       <DataTableColumnHeader column={column} title='Prenatal Exam' />
     ),
     cell: ({ cell }) => {
-      const hasExam = cell.getValue<Donor['prenatalExam']>();
+      const hasExam = cell.getValue<Donor['prenatalCare']>();
       const Icon = hasExam ? CheckCircle2 : XCircle;
       const variant = hasExam ? 'default' : 'destructive';
 

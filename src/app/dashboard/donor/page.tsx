@@ -32,14 +32,14 @@ export default async function Page(props: pageProps) {
       <div className='flex flex-1 flex-col space-y-4'>
         <div className='flex items-start justify-between'>
           <Heading
-            title='Donors'
-            description='Manage donors (Server side table functionalities.)'
+            title='Doadoras'
+            description='Gerencie as doadoras cadastradas'
           />
           <Link
             href='/dashboard/donor/new'
             className={cn(buttonVariants(), 'text-xs md:text-sm')}
           >
-            <IconPlus className='mr-2 h-4 w-4' /> Add New
+            <IconPlus className='mr-2 h-4 w-4' /> Adicionar nova doadora
           </Link>
         </div>
         <Separator />

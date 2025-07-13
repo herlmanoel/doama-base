@@ -9,7 +9,7 @@ type TDonorViewPageProps = {
 
 export default async function DonorViewPage({ donorId }: TDonorViewPageProps) {
   let donor = null;
-  let pageTitle = 'Create New Donor';
+  let pageTitle = 'Cadastro de Doadora';
 
   if (donorId !== 'new') {
     const data = await fakeDonors.getDonorById(Number(donorId));
@@ -17,7 +17,7 @@ export default async function DonorViewPage({ donorId }: TDonorViewPageProps) {
     if (!donor) {
       notFound();
     }
-    pageTitle = `Edit Donor`;
+    pageTitle = `Edição de Doadora: ${donor.fullName}`;
   }
 
   return <DonorForm initialData={donor} pageTitle={pageTitle} />;

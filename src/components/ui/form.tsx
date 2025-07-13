@@ -15,6 +15,12 @@ import {
 
 import { cn } from '@/lib/utils';
 import { Label } from '@/components/ui/label';
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from '@/components/ui/tooltip';
 
 const Form = FormProvider;
 
@@ -89,37 +95,60 @@ function FormItem({ className, ...props }: React.ComponentProps<'div'>) {
 
 function FormLabel({
   className,
+  required,
   ...props
-}: React.ComponentProps<typeof LabelPrimitive.Root>) {
+}: React.ComponentProps<typeof LabelPrimitive.Root> & { required?: boolean }) {
   const { error, formItemId } = useFormField();
 
   return (
-    <Label
-      data-slot='form-label'
-      data-error={!!error}
-      className={cn('data-[error=true]:text-destructive', className)}
-      htmlFor={formItemId}
-      {...props}
-    />
+    <TooltipProvider>
+      <Tooltip>
+        <TooltipTrigger asChild>
+          <Label
+            data-slot='form-label'
+            data-error={!!error}
+            className={cn('data-[error=true]:text-destructive', className)}
+            htmlFor={formItemId}
+            {...props}
+          >
+            {props.children}
+            {required && <span className="ml-1 text-destructive">*</span>}
+          </Label>
+        </TooltipTrigger>
+        {required && (
+          <TooltipContent>
+            <p>Campo obrigatório</p>
+          </TooltipContent>
+        )}
+      </Tooltip>
+    </TooltipProvider>
   );
 }
 
-function FormControl({ ...props }: React.ComponentProps<typeof Slot>) {
-  const { error, formItemId, formDescriptionId, formMessageId } =
-    useFormField();
+function FormControl({
+  children,
+  ...props
+}: React.ComponentProps<typeof Slot>) {
+  const { error, formItemId, formDescriptionId, formMessageId } = useFormField();
+
+
+  const hasMultipleChildren = React.Children.count(children) > 1;
 
   return (
-    <Slot
-      data-slot='form-control'
-      id={formItemId}
-      aria-describedby={
-        !error
-          ? `${formDescriptionId}`
-          : `${formDescriptionId} ${formMessageId}`
-      }
-      aria-invalid={!!error}
-      {...props}
-    />
+    <Slot {...props}>
+      <div
+        data-slot="form-control"
+        id={formItemId}
+        aria-describedby={
+          !error
+            ? formDescriptionId
+            : `${formDescriptionId} ${formMessageId}`
+        }
+        aria-invalid={!!error}
+      >
+        {children}
+      </div>
+    </Slot>
   );
 }
 

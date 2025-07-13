@@ -4,6 +4,7 @@
 
 import { faker } from '@faker-js/faker';
 import { matchSorter } from 'match-sorter'; // For filtering
+import { Donor } from './data';
 
 export const delay = (ms: number) =>
   new Promise((resolve) => setTimeout(resolve, ms));
@@ -163,27 +164,42 @@ export const fakeDonors = {
   initialize() {
     const sampleDonors: Donor[] = [];
     function generateRandomDonorData(id: number): Donor {
-      const dateOfBirth = faker.date.birthdate({
-        min: 18,
-        max: 45,
-        mode: 'age'
-      });
-      const childsDateOfBirth = faker.date.recent({ days: 365 }); // Child born in the last year
+      const dateOfBirth = faker.date.birthdate({ min: 18, max: 45, mode: 'age' });
+      const birthDate = faker.date.recent({ days: 365 }); // Child born in the last year
 
       return {
         id,
+        registrationDate: faker.date.past().toISOString(),
         fullName: faker.person.fullName(),
-        email: faker.internet.email(),
-        phone: faker.phone.number(),
         dateOfBirth: dateOfBirth.toISOString(),
+        profession: faker.person.jobTitle(),
         address: faker.location.streetAddress(true),
-        healthInfo: faker.helpers.maybe(() => faker.lorem.sentence(), {
-          probability: 0.5
-        }),
-        childsDateOfBirth: childsDateOfBirth.toISOString(),
-        prenatalExam: faker.datatype.boolean(),
+        city: faker.location.city(),
+        neighborhood: faker.location.secondaryAddress(),
+        referencePoint: faker.lorem.sentence(),
+        landline: faker.phone.number(),
+        mobile: faker.phone.number(),
+        prenatalCare: faker.lorem.sentence(),
+        doctorName: faker.person.fullName(),
+        gestationalAge: `${faker.number.int({ min: 37, max: 42 })} weeks`,
+        birthType: faker.helpers.arrayElement(['normal', 'cesarean']),
+        birthDate: birthDate.toISOString(),
+        complications: faker.helpers.maybe(() => faker.lorem.sentence(), { probability: 0.3 }),
+        vdrl: faker.helpers.arrayElement(['reagente', 'nao-reagente']),
+        hbsag: faker.helpers.arrayElement(['positivo', 'negativo']),
+        ftaAbs: faker.helpers.arrayElement(['positivo', 'negativo']),
+        hiv: faker.helpers.arrayElement(['positivo', 'negativo']),
+        transfusion: faker.helpers.arrayElement(['sim', 'nao']),
+        tattoo: faker.helpers.arrayElement(['sim', 'nao']),
+        tattooDetails: faker.helpers.maybe(() => faker.lorem.sentence(), { probability: 0.2 }),
+        piercing: faker.helpers.arrayElement(['sim', 'nao']),
+        piercingDetails: faker.helpers.maybe(() => faker.lorem.sentence(), { probability: 0.2 }),
+        smoker: faker.helpers.arrayElement(['sim', 'nao']),
+        alcohol: faker.helpers.arrayElement(['sim', 'nao']),
+        drugs: faker.helpers.arrayElement(['sim', 'nao']),
+        drugDetails: faker.helpers.maybe(() => faker.lorem.sentence(), { probability: 0.1 }),
         created_at: faker.date.past().toISOString(),
-        updated_at: faker.date.recent().toISOString()
+        updated_at: faker.date.recent().toISOString(),
       };
     }
 
