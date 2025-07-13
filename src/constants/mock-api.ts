@@ -155,3 +155,108 @@ export const fakeProducts = {
 
 // Initialize sample products
 fakeProducts.initialize();
+
+// Mock donor data store
+export const fakeDonors = {
+  records: [] as Donor[],
+
+  initialize() {
+    const sampleDonors: Donor[] = [];
+    function generateRandomDonorData(id: number): Donor {
+      const dateOfBirth = faker.date.birthdate({
+        min: 18,
+        max: 45,
+        mode: 'age'
+      });
+      const childsDateOfBirth = faker.date.recent({ days: 365 }); // Child born in the last year
+
+      return {
+        id,
+        fullName: faker.person.fullName(),
+        email: faker.internet.email(),
+        phone: faker.phone.number(),
+        dateOfBirth: dateOfBirth.toISOString(),
+        address: faker.location.streetAddress(true),
+        healthInfo: faker.helpers.maybe(() => faker.lorem.sentence(), {
+          probability: 0.5
+        }),
+        childsDateOfBirth: childsDateOfBirth.toISOString(),
+        prenatalExam: faker.datatype.boolean(),
+        created_at: faker.date.past().toISOString(),
+        updated_at: faker.date.recent().toISOString()
+      };
+    }
+
+    for (let i = 1; i <= 20; i++) {
+      sampleDonors.push(generateRandomDonorData(i));
+    }
+
+    this.records = sampleDonors;
+  },
+
+  async getAll({ search }: { search?: string }) {
+    let donors = [...this.records];
+
+    if (search) {
+      donors = matchSorter(donors, search, {
+        keys: ['fullName', 'email', 'address']
+      });
+    }
+
+    return donors;
+  },
+
+  async getDonors({
+    page = 1,
+    limit = 10,
+    search
+  }: {
+    page?: number;
+    limit?: number;
+    search?: string;
+  }) {
+    await delay(1000);
+    const allDonors = await this.getAll({ search });
+    const totalDonors = allDonors.length;
+
+    const offset = (page - 1) * limit;
+    const paginatedDonors = allDonors.slice(offset, offset + limit);
+
+    const currentTime = new Date().toISOString();
+
+    return {
+      success: true,
+      time: currentTime,
+      message: 'Sample donor data for testing',
+      total_donors: totalDonors,
+      offset,
+      limit,
+      donors: paginatedDonors
+    };
+  },
+
+  async getDonorById(id: number) {
+    await delay(1000);
+
+    const donor = this.records.find((d) => d.id === id);
+
+    if (!donor) {
+      return {
+        success: false,
+        message: `Donor with ID ${id} not found`
+      };
+    }
+
+    const currentTime = new Date().toISOString();
+
+    return {
+      success: true,
+      time: currentTime,
+      message: `Donor with ID ${id} found`,
+      donor
+    };
+  }
+};
+
+// Initialize sample donors
+fakeDonors.initialize();

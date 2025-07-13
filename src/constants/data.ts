@@ -11,6 +11,20 @@ export type Product = {
   updated_at: string;
 };
 
+export type Donor = {
+  id: number;
+  fullName: string;
+  email: string;
+  phone: string;
+  dateOfBirth: string;
+  address: string;
+  healthInfo?: string;
+  childsDateOfBirth: string;
+  prenatalExam: boolean;
+  created_at: string;
+  updated_at: string;
+};
+
 //Info: The following data is used for the sidebar navigation and Cmd K bar.
 export const navItems: NavItem[] = [
   {
