@@ -36,22 +36,22 @@ const ACCEPTED_IMAGE_TYPES = [
 const formSchema = z.object({
   image: z
     .any()
-    .refine((files) => files?.length == 1, 'Image is required.')
+    .refine((files) => files?.length == 1, 'A imagem é obrigatória.')
     .refine(
       (files) => files?.[0]?.size <= MAX_FILE_SIZE,
-      `Max file size is 5MB.`
+      `O tamanho máximo do arquivo é 5MB.`
     )
     .refine(
       (files) => ACCEPTED_IMAGE_TYPES.includes(files?.[0]?.type),
-      '.jpg, .jpeg, .png and .webp files are accepted.'
+      'Arquivos .jpg, .jpeg, .png e .webp são aceitos.'
     ),
   name: z.string().min(2, {
-    message: 'Product name must be at least 2 characters.'
+    message: 'O nome do produto deve ter pelo menos 2 caracteres.'
   }),
   category: z.string(),
   price: z.number(),
   description: z.string().min(10, {
-    message: 'Description must be at least 10 characters.'
+    message: 'A descrição deve ter pelo menos 10 caracteres.'
   })
 });
 
@@ -94,7 +94,7 @@ export default function ProductForm({
               render={({ field }) => (
                 <div className='space-y-6'>
                   <FormItem className='w-full'>
-                    <FormLabel>Images</FormLabel>
+                    <FormLabel>Imagens</FormLabel>
                     <FormControl>
                       <FileUploader
                         value={field.value}
@@ -120,9 +120,9 @@ export default function ProductForm({
                 name='name'
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Product Name</FormLabel>
+                    <FormLabel>Nome do Produto</FormLabel>
                     <FormControl>
-                      <Input placeholder='Enter product name' {...field} />
+                      <Input placeholder='Digite o nome do produto' {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -133,23 +133,23 @@ export default function ProductForm({
                 name='category'
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Category</FormLabel>
+                    <FormLabel>Categoria</FormLabel>
                     <Select
                       onValueChange={(value) => field.onChange(value)}
                       value={field.value[field.value.length - 1]}
                     >
                       <FormControl>
                         <SelectTrigger>
-                          <SelectValue placeholder='Select categories' />
+                          <SelectValue placeholder='Selecionar categorias' />
                         </SelectTrigger>
                       </FormControl>
                       <SelectContent>
-                        <SelectItem value='beauty'>Beauty Products</SelectItem>
-                        <SelectItem value='electronics'>Electronics</SelectItem>
-                        <SelectItem value='clothing'>Clothing</SelectItem>
-                        <SelectItem value='home'>Home & Garden</SelectItem>
+                        <SelectItem value='beauty'>Produtos de Beleza</SelectItem>
+                        <SelectItem value='electronics'>Eletrônicos</SelectItem>
+                        <SelectItem value='clothing'>Vestuário</SelectItem>
+                        <SelectItem value='home'>Casa e Jardim</SelectItem>
                         <SelectItem value='sports'>
-                          Sports & Outdoors
+                          Esportes e Ar Livre
                         </SelectItem>
                       </SelectContent>
                     </Select>
@@ -162,12 +162,12 @@ export default function ProductForm({
                 name='price'
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Price</FormLabel>
+                    <FormLabel>Preço</FormLabel>
                     <FormControl>
                       <Input
                         type='number'
                         step='0.01'
-                        placeholder='Enter price'
+                        placeholder='Digite o preço'
                         {...field}
                       />
                     </FormControl>
@@ -181,10 +181,10 @@ export default function ProductForm({
               name='description'
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Description</FormLabel>
+                  <FormLabel>Descrição</FormLabel>
                   <FormControl>
                     <Textarea
-                      placeholder='Enter product description'
+                      placeholder='Digite a descrição do produto'
                       className='resize-none'
                       {...field}
                     />
@@ -193,7 +193,7 @@ export default function ProductForm({
                 </FormItem>
               )}
             />
-            <Button type='submit'>Add Product</Button>
+            <Button type='submit'>Adicionar Produto</Button>
           </form>
         </Form>
       </CardContent>

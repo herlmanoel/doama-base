@@ -4,7 +4,7 @@ import { Suspense } from 'react';
 import DonorViewPage from '@/features/donors/components/donor-view-page';
 
 export const metadata = {
-  title: 'Dashboard : Donor View'
+  title: 'Dashboard : Visualização de Doadora'
 };
 
 type PageProps = { params: Promise<{ id: string }> };

@@ -16,8 +16,8 @@ const META_THEME_COLORS = {
 };
 
 export const metadata: Metadata = {
-  title: 'Next Shadcn',
-  description: 'Basic dashboard with Next.js and Shadcn'
+  title: 'Doama',
+  description: 'Dashboard básico com Next.js e Shadcn'
 };
 
 export const viewport: Viewport = {
@@ -34,10 +34,10 @@ export default async function RootLayout({
   const isScaled = activeThemeValue?.endsWith('-scaled');
 
   return (
-    <html lang='en' suppressHydrationWarning>
+    <html lang='pt-BR' suppressHydrationWarning>
       <head>
         <script
-          dangerouslySetInnerHTML={{
+          dangerouslySetInnerHTML={{=
             __html: `
               try {
                 if (localStorage.theme === 'dark' || ((!('theme' in localStorage) || localStorage.theme === 'system') && window.matchMedia('(prefers-color-scheme: dark)').matches)) {

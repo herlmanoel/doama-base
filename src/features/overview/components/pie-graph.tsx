@@ -24,12 +24,12 @@ const chartData = [
   { browser: 'safari', visitors: 200, fill: 'var(--primary-light)' },
   { browser: 'firefox', visitors: 287, fill: 'var(--primary-lighter)' },
   { browser: 'edge', visitors: 173, fill: 'var(--primary-dark)' },
-  { browser: 'other', visitors: 190, fill: 'var(--primary-darker)' }
+  { browser: 'outros', visitors: 190, fill: 'var(--primary-darker)' }
 ];
 
 const chartConfig = {
   visitors: {
-    label: 'Visitors'
+    label: 'Visitantes'
   },
   chrome: {
     label: 'Chrome',
@@ -48,7 +48,7 @@ const chartConfig = {
     color: 'var(--primary)'
   },
   other: {
-    label: 'Other',
+    label: 'Outros',
     color: 'var(--primary)'
   }
 } satisfies ChartConfig;
@@ -61,12 +61,12 @@ export function PieGraph() {
   return (
     <Card className='@container/card'>
       <CardHeader>
-        <CardTitle>Pie Chart - Donut with Text</CardTitle>
+        <CardTitle>Gráfico de Pizza - Rosca com Texto</CardTitle>
         <CardDescription>
           <span className='hidden @[540px]/card:block'>
-            Total visitors by browser for the last 6 months
+            Total de visitantes por navegador nos últimos 6 meses
           </span>
-          <span className='@[540px]/card:hidden'>Browser distribution</span>
+          <span className='@[540px]/card:hidden'>Distribuição por navegador</span>
         </CardDescription>
       </CardHeader>
       <CardContent className='px-2 pt-4 sm:px-6 sm:pt-6'>
@@ -137,7 +137,7 @@ export function PieGraph() {
                           y={(viewBox.cy || 0) + 24}
                           className='fill-muted-foreground text-sm'
                         >
-                          Total Visitors
+                          Total de Visitantes
                         </tspan>
                       </text>
                     );
@@ -150,12 +150,12 @@ export function PieGraph() {
       </CardContent>
       <CardFooter className='flex-col gap-2 text-sm'>
         <div className='flex items-center gap-2 leading-none font-medium'>
-          Chrome leads with{' '}
+          Chrome lidera com{' '}
           {((chartData[0].visitors / totalVisitors) * 100).toFixed(1)}%{' '}
           <IconTrendingUp className='h-4 w-4' />
         </div>
         <div className='text-muted-foreground leading-none'>
-          Based on data from January - June 2024
+          Baseado em dados de Janeiro - Junho 2024
         </div>
       </CardFooter>
     </Card>
